@@ -20,7 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String username, password;
   bool show = false;
   bool showProgress = false;
-  TextEditingController txtUsernameCtrl = TextEditingController(),
+  TextEditingController
+      txtUsernameCtrl = TextEditingController(),
       txtPwdCtrl = TextEditingController();
 
   _LoginScreenState() {
@@ -72,16 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       Response response = await networkHelper.login(
                           username: txtUsernameCtrl.text,
                           password: txtPwdCtrl.text);
-                      if (response.statusCode == 200) {
-                        gotoHomeScreen(response);
+                      if (response.statusCode == 200)
+                      {
                         saveDetailsToLocal(response);
-                        Toast.show("Success", context,
-                            duration: Toast.LENGTH_SHORT,
-                            gravity: Toast.BOTTOM);
+                        gotoHomeScreen(response);
+                        Toast.show("Success", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       } else {
-                        Toast.show(jsonDecode(response.body)['error'], context,
-                            duration: Toast.LENGTH_SHORT,
-                            gravity: Toast.BOTTOM);
+                        Toast.show(jsonDecode(response.body)['error'], context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       }
                       setState(() {
                         if (response.statusCode == 200) {

@@ -23,4 +23,8 @@ class NetworkHelper {
 
     return response;
   }
+  Future<Response> getAllPosts() async {
+    var response = await get(UrlProvider.getAllPosts());
+    return response;
+  }
 }

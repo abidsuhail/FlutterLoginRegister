@@ -12,7 +12,6 @@ class InputText extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: TextField(
         controller: inputControl,
-        /*  onChanged: (value) => inputControl.text = value, */
         decoration: InputDecoration(hintText: hint, labelText: label),
       ),
     );

@@ -24,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           title: Text('Register'),
         ),
         body: Container(
+          padding: EdgeInsets.all(20),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
