@@ -1,0 +1,72 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'package:login_application_1/networking/networkhelper.dart';
+import 'package:login_application_1/styles/mywidgets.dart';
+import 'package:toast/toast.dart';
+
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController email = TextEditingController(),
+      password = TextEditingController();
+  NetworkHelper networkHelper = NetworkHelper();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Register'),
+        ),
+        body: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Register',
+                  style: TextStyle(fontSize: 30.0),
+                ),
+                InputText(
+                  label: 'Email',
+                  hint: 'Enter Email',
+                  inputControl: email,
+                ),
+                InputText(
+                  label: 'Password',
+                  hint: 'Enter Password',
+                  inputControl: password,
+                ),
+                MyLoginTypeButton(
+                  label: 'Register',
+                  onPressed: () async {
+                    Response response = await networkHelper.register(
+                        email: email.text, password: password.text);
+                    print(response.body);
+                    if (response.statusCode == 200) {
+                      if (jsonDecode(response.body)['token'] != null) {
+                        Toast.show("Success", context,
+                            duration: Toast.LENGTH_SHORT,
+                            gravity: Toast.BOTTOM);
+                      } else {
+                        Toast.show(jsonDecode(response.body)['error'], context,
+                            duration: Toast.LENGTH_SHORT,
+                            gravity: Toast.BOTTOM);
+                      }
+                    } else {
+                      Toast.show(jsonDecode(response.body)['error'], context,
+                          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                    }
+                  },
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+}
