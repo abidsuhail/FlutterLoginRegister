@@ -9,6 +9,7 @@ import 'package:login_application_1/model/user.dart';
 import 'package:login_application_1/networking/networkhelper.dart';
 import 'package:login_application_1/screens/LoginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -84,11 +85,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(8),
                   itemCount: postsList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: EdgeInsets.all(1),
-                      height: 50,
-                      color: Colors.orange,
-                      child: Center(child: Text('Entry ${postsList[index].title}')),
+                    return GestureDetector(
+                      onTap: (){
+                        Toast.show('${postsList[index].title}', context,
+                            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(1),
+                        height: 50,
+                        color: Colors.orange,
+                        child: Center(child: Text('Entry ${postsList[index].title}')),
+                      ),
                     );
                   }
               ),
