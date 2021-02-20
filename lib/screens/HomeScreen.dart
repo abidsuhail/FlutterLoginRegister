@@ -48,6 +48,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text("Abid Suhail"),
+              accountEmail: Text("Android Developer"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                Theme.of(context).platform == TargetPlatform.iOS
+                    ? Colors.blue
+                    : Colors.white,
+                child: Text(
+                  "A",
+                  style: TextStyle(fontSize: 40.0),
+                ),
+              ),
+            ),ListTile(
+            title: Text("Home"),
+           /* trailing: Icon(Icons.arrow_forward),*/
+          ),
+            ListTile(
+              title: Text("Profile"),
+              /*trailing: Icon(Icons.arrow_forward),*/
+            )],
+        ),
+      ),
       appBar: AppBar(
         title: Text('Home'),
       ),
@@ -55,8 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
               children: [
-            Text('My Token is ${widget.user.getToken()}',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('My Auth Token is : ${widget.user.getToken()}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(
               height: 15,
             ),
@@ -77,12 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   padding: EdgeInsets.all(8),
                   alignment: Alignment.topLeft,
-                  child: Text('List data coming from server',
+                  child: Text('Dummy List data coming from server',
                       style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
                 ),
             Expanded(
               child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
                   itemCount: postsList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
@@ -91,10 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       },
                       child: Container(
+                        padding: const EdgeInsets.all(8),
                         margin: EdgeInsets.all(1),
                         height: 50,
                         color: Colors.orange,
-                        child: Center(child: Text('Entry ${postsList[index].title}')),
+                        child: Center(child: Text('${postsList[index].title}')),
                       ),
                     );
                   }
