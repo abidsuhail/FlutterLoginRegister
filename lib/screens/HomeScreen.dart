@@ -20,28 +20,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   NetworkHelper networkHelper = new NetworkHelper();
-  List<Widget> allposts = new List<Widget>();
-  Future<List<Widget>> getAllPosts() async
+  List<Post> postsList = new List<Post>();
+  void getAllPosts() async
   {
-    List<Widget> containers = new List<Widget>();
     try {
       Response response = await networkHelper.getAllPosts();
       List<dynamic> decodedJson = jsonDecode(response.body);
       PostsList postsList = PostsList.fromJson(decodedJson);
-      for(Post postItem in postsList.posts)
-        {
-          containers.add(Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(3),
-            height: 50,
-            color: Colors.deepOrangeAccent,
-            child: Center(child: Text(postItem.title)),
-          ));
-        }
       setState(() {
-        allposts = containers;
+        this.postsList = postsList.posts;
       });
-      return containers;
     }
     catch(e)
     {
@@ -92,9 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
                 ),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(1),
-                children: allposts,
+              child: ListView.builder(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: postsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.all(1),
+                      height: 50,
+                      color: Colors.orange,
+                      child: Center(child: Text('Entry ${postsList[index].title}')),
+                    );
+                  }
               ),
             )
           ]),
