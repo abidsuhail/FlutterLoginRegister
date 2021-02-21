@@ -27,8 +27,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           padding: EdgeInsets.all(20),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                  child: Image(image: AssetImage('images/ic_register.png'),height: 140,width: 140,),
+                ),
                 Text(
                   'Register',
                   style: TextStyle(fontSize: 30.0),

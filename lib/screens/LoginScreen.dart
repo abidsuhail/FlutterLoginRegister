@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -45,6 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 Opacity(
                     opacity: showProgress ? 1 : 0,
                     child: CircularProgressIndicator()),
+                Container(
+                  margin: EdgeInsets.all(40),
+                  child: Image(image: AssetImage('images/ic_login.png'),height: 110,width: 110,),
+                ),
+
                 Text(
                   'Welcome',
                   style: TextStyle(fontSize: 35.0),
